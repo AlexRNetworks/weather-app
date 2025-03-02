@@ -32,7 +32,13 @@ function getWeatherData(latitude, longitude) {
 }
 
 function displayWeather(data) {
-    locationDiv.textContent = `${data.name || data.city.name}, ${data.sys.country || data.city.country}`; // handles if it is current weather or forecast.
+    if (data && data.city) {
+        locationDiv.textContent = `${data.city.name}, ${data.city.country}`;
+    } else if(data && data.name){
+        locationDiv.textContent = `${data.name}, ${data.sys.country}`;
+    } else {
+        locationDiv.textContent = "Location not found.";
+    }
     temperatureDiv.querySelector('span').textContent = `${data.main.temp}°F`;
     conditionsDiv.querySelector('span').textContent = data.weather[0].description;
     humidityDiv.querySelector('span').textContent = `${data.main.humidity}%`;

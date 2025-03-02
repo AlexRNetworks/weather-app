@@ -10,7 +10,7 @@ const apiKey = '4abe940a306c4b281c2ebe31b3961caa'; // Replace with your REAL API
 
 function getWeatherData(latitude, longitude) {
     loadingDiv.style.display = 'flex'; // Show loading indicator
-    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`; // Imperial units for Fahrenheit
+    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`;
 
     fetch(apiUrl)
         .then(response => {
@@ -21,8 +21,8 @@ function getWeatherData(latitude, longitude) {
         })
         .then(data => {
             console.log(data); // Add console log for debugging
-            displayWeather(data.list[0]); // Display current weather from forecast
-            displayForecast(data.list); // Display forecast
+            displayWeather(data);
+            displayForecast(data.list);
         })
         .catch(error => {
             console.error('Error fetching weather data:', error);
@@ -44,16 +44,16 @@ function displayWeather(data) {
         locationDiv.textContent = "Location not found.";
     }
 
-    if (data && data.main && data.weather && data.weather[0]) {
-        temperatureDiv.querySelector('span').textContent = `${data.main.temp}°F`;
-        conditionsDiv.querySelector('span').textContent = data.weather[0].description;
-        humidityDiv.querySelector('span').textContent = `${data.main.humidity}%`;
-        windDiv.querySelector('span').textContent = `${data.wind.speed} mph`;
-    } else if (data && data.list && data.list[0] && data.list[0].main && data.list[0].weather && data.list[0].weather[0]){
+    if (data && data.list && data.list[0] && data.list[0].main && data.list[0].weather && data.list[0].weather[0]) {
         temperatureDiv.querySelector('span').textContent = `${data.list[0].main.temp}°F`;
         conditionsDiv.querySelector('span').textContent = data.list[0].weather[0].description;
         humidityDiv.querySelector('span').textContent = `${data.list[0].main.humidity}%`;
         windDiv.querySelector('span').textContent = `${data.list[0].wind.speed} mph`;
+    } else if (data && data.main && data.weather && data.weather[0]){
+        temperatureDiv.querySelector('span').textContent = `${data.main.temp}°F`;
+        conditionsDiv.querySelector('span').textContent = data.weather[0].description;
+        humidityDiv.querySelector('span').textContent = `${data.main.humidity}%`;
+        windDiv.querySelector('span').textContent = `${data.wind.speed} mph`;
     } else {
         temperatureDiv.querySelector('span').textContent = "Data not found";
         conditionsDiv.querySelector('span').textContent = "Data not found";

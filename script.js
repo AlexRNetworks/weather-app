@@ -20,6 +20,7 @@ function getWeatherData(latitude, longitude) {
             return response.json();
         })
         .then(data => {
+            console.log(data); // Add console log for debugging
             displayWeather(data);
             displayForecast(data.forecast.forecastday);
         })

@@ -13,7 +13,12 @@ function getWeatherData(latitude, longitude) {
     const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&days=5`;
 
     fetch(apiUrl)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             displayWeather(data);
             displayForecast(data.forecast.forecastday);
@@ -21,6 +26,7 @@ function getWeatherData(latitude, longitude) {
         .catch(error => {
             console.error('Error fetching weather data:', error);
             loadingDiv.style.display = 'none'; // Hide loading indicator
+            locationDiv.textContent = "Error loading weather data.";
         });
 }
 
@@ -54,9 +60,12 @@ function getLocation() {
             getWeatherData(latitude, longitude);
         }, error => {
             console.error('Error getting location:', error);
+            locationDiv.textContent = "Error getting location.";
+            loadingDiv.style.display = 'none';
         });
     } else {
-        alert('Geolocation is not supported by this browser.');
+        locationDiv.textContent = 'Geolocation is not supported by this browser.';
+        loadingDiv.style.display = 'none';
     }
 }
 

@@ -6,7 +6,7 @@ const windDiv = document.getElementById('wind');
 const forecastDiv = document.getElementById('forecast-items');
 const loadingDiv = document.getElementById('loading');
 
-const apiKey = '4abe940a306c4b281c2ebe31b3961caa'; // Your API Key
+const apiKey = 'a6bb32b9713f98136d4ab1e00f5959f5'; // Your API Key
 
 function getWeatherData(latitude, longitude) {
     loadingDiv.style.display = 'flex'; // Show loading indicator

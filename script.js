@@ -6,11 +6,11 @@ const windDiv = document.getElementById('wind');
 const forecastDiv = document.getElementById('forecast-items');
 const loadingDiv = document.getElementById('loading');
 
-const apiKey = 'a6bb32b9713f98136d4ab1e00f5959f5'; // Your API Key
+const apiKey = '4abe940a306c4b281c2ebe31b3961caa'; // Replace with your OpenWeatherMap API key
 
 function getWeatherData(latitude, longitude) {
     loadingDiv.style.display = 'flex'; // Show loading indicator
-    const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&days=5`;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`; // Imperial units for Fahrenheit
 
     fetch(apiUrl)
         .then(response => {
@@ -21,8 +21,8 @@ function getWeatherData(latitude, longitude) {
         })
         .then(data => {
             console.log(data); // Add console log for debugging
-            displayWeather(data);
-            displayForecast(data.forecast.forecastday);
+            displayWeather(data.list[0]); // Display current weather from forecast
+            displayForecast(data.list); // Display forecast
         })
         .catch(error => {
             console.error('Error fetching weather data:', error);
@@ -32,25 +32,27 @@ function getWeatherData(latitude, longitude) {
 }
 
 function displayWeather(data) {
-    locationDiv.textContent = `${data.location.name}, ${data.location.region}`;
-    temperatureDiv.querySelector('span').textContent = `${data.current.temp_f}°F`;
-    conditionsDiv.querySelector('span').textContent = data.current.condition.text;
-    humidityDiv.querySelector('span').textContent = `${data.current.humidity}%`;
-    windDiv.querySelector('span').textContent = `${data.current.wind_mph} mph`;
+    locationDiv.textContent = `${data.name || data.city.name}, ${data.sys.country || data.city.country}`; // handles if it is current weather or forecast.
+    temperatureDiv.querySelector('span').textContent = `${data.main.temp}°F`;
+    conditionsDiv.querySelector('span').textContent = data.weather[0].description;
+    humidityDiv.querySelector('span').textContent = `${data.main.humidity}%`;
+    windDiv.querySelector('span').textContent = `${data.wind.speed} mph`;
     loadingDiv.style.display = 'none';
 }
 
 function displayForecast(forecastData) {
     forecastDiv.innerHTML = ''; // Clear previous forecast
-    forecastData.forEach(day => {
-        const dayDiv = document.createElement('div');
-        dayDiv.innerHTML = `
-            <strong>${day.date}</strong><br>
-            Temp: ${day.day.avgtemp_f}°F<br>
-            ${day.day.condition.text}
+    for(let i = 0; i < forecastData.length; i+=8){
+        let day = forecastData[i];
+        let date = new Date(day.dt * 1000); //convert unix timestamp to date.
+        forecastDiv.innerHTML += `
+            <div>
+                <strong>${date.toDateString()}</strong><br>
+                Temp: ${day.main.temp}°F<br>
+                ${day.weather[0].description}
+            </div>
         `;
-        forecastDiv.appendChild(dayDiv);
-    });
+    }
 }
 
 function getLocation() {

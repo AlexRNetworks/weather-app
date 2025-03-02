@@ -6,7 +6,7 @@ const windDiv = document.getElementById('wind');
 const forecastDiv = document.getElementById('forecast-items');
 const loadingDiv = document.getElementById('loading');
 
-const apiKey = '4abe940a306c4b281c2ebe31b3961caa'; // Replace with your OpenWeatherMap API key
+const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY'; // Replace with your OpenWeatherMap API key
 
 function getWeatherData(latitude, longitude) {
     loadingDiv.style.display = 'flex'; // Show loading indicator
@@ -34,8 +34,12 @@ function getWeatherData(latitude, longitude) {
 function displayWeather(data) {
     if (data && data.city) {
         locationDiv.textContent = `${data.city.name}, ${data.city.country}`;
-    } else if(data && data.name){
+    } else if (data && data.name) {
         locationDiv.textContent = `${data.name}, ${data.sys.country}`;
+    } else if (data && data.list && data.list[0] && data.list[0].city){
+        locationDiv.textContent = `${data.list[0].city.name}, ${data.list[0].city.country}`;
+    } else if (data && data.list && data.list[0] && data.list[0].name){
+        locationDiv.textContent = `${data.list[0].name}, ${data.list[0].sys.country}`;
     } else {
         locationDiv.textContent = "Location not found.";
     }

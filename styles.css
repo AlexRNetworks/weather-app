@@ -1,0 +1,92 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #6190E8, #A7BFE8);
+    color: #fff; /* White text for better contrast on gradient */
+    display: flex;
+    flex-direction: column; /* Use flex column to fill the page */
+    min-height: 100vh;
+}
+
+.weather-container {
+    padding: 30px;
+    width: 100%; /* Fill the whole width */
+    box-sizing: border-box; /* Include padding in width calculation */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allow container to grow and fill available space */
+}
+
+.weather-header {
+    text-align: center;
+    margin-bottom: 30px; /* Increased margin for better spacing */
+}
+
+.weather-main {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Increased min width */
+    gap: 30px; /* Increased gap for better spacing */
+    margin-bottom: 40px; /* Increased margin */
+}
+
+.weather-item {
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    padding: 30px; /* Increased padding */
+    border-radius: 15px; /* More rounded corners */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    backdrop-filter: blur(10px); /* Add a subtle blur effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+}
+
+.weather-item i {
+    font-size: 60px; /* Increased icon size */
+    margin-bottom: 15px;
+    color: #fff; /* White icons */
+}
+
+.weather-forecast {
+    text-align: center;
+    margin-top: auto; /* Push forecast to the bottom */
+}
+
+.weather-forecast h3 {
+    margin-bottom: 20px;
+}
+
+#forecast-items {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+#forecast-items div {
+    background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent white */
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px;
+    min-width: 150px;
+    backdrop-filter: blur(8px); /* Add a subtle blur effect */
+}
+
+.loading-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.loading-indicator i {
+    font-size: 60px;
+    color: #fff;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}

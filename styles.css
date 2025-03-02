@@ -2,55 +2,55 @@ body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #6190E8, #A7BFE8);
-    color: #fff; /* White text for better contrast on gradient */
+    color: #fff;
     display: flex;
-    flex-direction: column; /* Use flex column to fill the page */
+    flex-direction: column;
     min-height: 100vh;
 }
 
 .weather-container {
     padding: 30px;
-    width: 100%; /* Fill the whole width */
-    box-sizing: border-box; /* Include padding in width calculation */
+    width: 100%;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Allow container to grow and fill available space */
+    flex-grow: 1;
 }
 
 .weather-header {
     text-align: center;
-    margin-bottom: 30px; /* Increased margin for better spacing */
+    margin-bottom: 30px;
 }
 
 .weather-main {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Increased min width */
-    gap: 30px; /* Increased gap for better spacing */
-    margin-bottom: 40px; /* Increased margin */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
 }
 
 .weather-item {
-    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
-    padding: 30px; /* Increased padding */
-    border-radius: 15px; /* More rounded corners */
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 30px;
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    backdrop-filter: blur(10px); /* Add a subtle blur effect */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .weather-item i {
-    font-size: 60px; /* Increased icon size */
+    font-size: 60px;
     margin-bottom: 15px;
-    color: #fff; /* White icons */
+    color: #fff;
 }
 
 .weather-forecast {
     text-align: center;
-    margin-top: auto; /* Push forecast to the bottom */
+    margin-top: auto;
 }
 
 .weather-forecast h3 {
@@ -64,12 +64,12 @@ body {
 }
 
 #forecast-items div {
-    background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent white */
+    background-color: rgba(255, 255, 255, 0.15);
     padding: 20px;
     border-radius: 10px;
     margin: 10px;
     min-width: 150px;
-    backdrop-filter: blur(8px); /* Add a subtle blur effect */
+    backdrop-filter: blur(8px);
 }
 
 .loading-indicator {

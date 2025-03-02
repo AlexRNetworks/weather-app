@@ -6,7 +6,7 @@ const windDiv = document.getElementById('wind');
 const forecastDiv = document.getElementById('forecast-items');
 const loadingDiv = document.getElementById('loading');
 
-const apiKey = '4abe940a306c4b281c2ebe31b3961caa'; // Replace with your OpenWeatherMap API key
+const apiKey = '4abe940a306c4b281c2ebe31b3961caa'; // Replace with your REAL API key
 
 function getWeatherData(latitude, longitude) {
     loadingDiv.style.display = 'flex'; // Show loading indicator
@@ -34,19 +34,33 @@ function getWeatherData(latitude, longitude) {
 function displayWeather(data) {
     if (data && data.city) {
         locationDiv.textContent = `${data.city.name}, ${data.city.country}`;
+    } else if (data && data.list && data.list[0] && data.list[0].city) {
+        locationDiv.textContent = `${data.list[0].city.name}, ${data.list[0].city.country}`;
+    } else if (data && data.list && data.list[0] && data.list[0].name) {
+        locationDiv.textContent = `${data.list[0].name}, ${data.list[0].sys.country}`;
     } else if (data && data.name) {
         locationDiv.textContent = `${data.name}, ${data.sys.country}`;
-    } else if (data && data.list && data.list[0] && data.list[0].city){
-        locationDiv.textContent = `${data.list[0].city.name}, ${data.list[0].city.country}`;
-    } else if (data && data.list && data.list[0] && data.list[0].name){
-        locationDiv.textContent = `${data.list[0].name}, ${data.list[0].sys.country}`;
     } else {
         locationDiv.textContent = "Location not found.";
     }
-    temperatureDiv.querySelector('span').textContent = `${data.main.temp}°F`;
-    conditionsDiv.querySelector('span').textContent = data.weather[0].description;
-    humidityDiv.querySelector('span').textContent = `${data.main.humidity}%`;
-    windDiv.querySelector('span').textContent = `${data.wind.speed} mph`;
+
+    if (data && data.main && data.weather && data.weather[0]) {
+        temperatureDiv.querySelector('span').textContent = `${data.main.temp}°F`;
+        conditionsDiv.querySelector('span').textContent = data.weather[0].description;
+        humidityDiv.querySelector('span').textContent = `${data.main.humidity}%`;
+        windDiv.querySelector('span').textContent = `${data.wind.speed} mph`;
+    } else if (data && data.list && data.list[0] && data.list[0].main && data.list[0].weather && data.list[0].weather[0]){
+        temperatureDiv.querySelector('span').textContent = `${data.list[0].main.temp}°F`;
+        conditionsDiv.querySelector('span').textContent = data.list[0].weather[0].description;
+        humidityDiv.querySelector('span').textContent = `${data.list[0].main.humidity}%`;
+        windDiv.querySelector('span').textContent = `${data.list[0].wind.speed} mph`;
+    } else {
+        temperatureDiv.querySelector('span').textContent = "Data not found";
+        conditionsDiv.querySelector('span').textContent = "Data not found";
+        humidityDiv.querySelector('span').textContent = "Data not found";
+        windDiv.querySelector('span').textContent = "Data not found";
+    }
+
     loadingDiv.style.display = 'none';
 }
 

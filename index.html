@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alexr Weather</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="weather-container">
+        <div class="weather-header">
+            <h1>Alexr Weather</h1>
+            <h2 id="location">Loading...</h2>
+        </div>
+        <div class="weather-main">
+            <div id="temperature" class="weather-item">
+                <i class="material-icons">device_thermostat</i>
+                <span>Loading...</span>
+            </div>
+            <div id="conditions" class="weather-item">
+                <i class="material-icons">cloud_circle</i>
+                <span>Loading...</span>
+            </div>
+            <div id="humidity" class="weather-item">
+                <i class="material-icons">water_drop</i>
+                <span>Loading...</span>
+            </div>
+            <div id="wind" class="weather-item">
+                <i class="material-icons">air</i>
+                <span>Loading...</span>
+            </div>
+        </div>
+        <div id="forecast" class="weather-forecast">
+            <h3>5-Day Forecast</h3>
+            <div id="forecast-items"></div>
+        </div>
+        <div id="loading" class="loading-indicator">
+            <i class="material-icons spin">refresh</i>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
